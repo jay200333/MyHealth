@@ -29,7 +29,8 @@
                 android:id="@+id/exercise_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/exercise_img"/>
 
@@ -41,21 +42,6 @@
                 android:layout_toRightOf="@+id/exercise_img"
                 android:layout_below="@+id/exercise_name" />
 
-            <TextView
-                android:id="@+id/exercise_difficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/exercise_img"
-                android:layout_below="@+id/exercise_muscle"
-                android:textSize="10sp"/>
-
-            <TextView
-                android:id="@+id/exercise_instructions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/exercise_img"
-                android:layout_below="@+id/exercise_difficulty"
-                android:textSize="10sp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

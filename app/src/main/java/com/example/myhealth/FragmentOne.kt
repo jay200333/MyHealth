@@ -1,5 +1,6 @@
 package com.example.myhealth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import retrofit2.Callback
 class FragmentOne: Fragment() {
     private lateinit var recyclerAdapter: RecyclerAdapter
     private lateinit var recyclerView: RecyclerView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +37,14 @@ class FragmentOne: Fragment() {
             override fun onResponse(call: Call<List<Exercise>>, response: Response<List<Exercise>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { exercises ->
-                        recyclerAdapter = RecyclerAdapter(exercises)
+                        recyclerAdapter = RecyclerAdapter(exercises) { exercise ->
+                            val intent = Intent(requireContext(), FragmentOneItemActivity::class.java)
+                            intent.putExtra("itemExerciseName", exercise.name)
+                            intent.putExtra("itemExerciseMuscle", exercise.muscle)
+                            intent.putExtra("itemExerciseEquipment", exercise.equipment)
+                            intent.putExtra("itemExerciseInstruction", exercise.instructions)
+                            startActivity(intent)
+                        }
                         recyclerView.adapter = recyclerAdapter
                     }
                 } else {
@@ -47,5 +56,14 @@ class FragmentOne: Fragment() {
                 Log.e("FragmentOne", "API 호출 중 오류 발생: ${t.message}")
             }
         })
+    }
+
+    private fun setupRecyclerView(exercises: List<Exercise>) {
+        val adapter = RecyclerAdapter(exercises) { exercise ->
+            val intent = Intent(requireContext(), FragmentOneItemActivity::class.java)
+            intent.putExtra("exerciseId", exercise.name)
+            startActivity(intent)
+        }
+        recyclerView.adapter = adapter
     }
 }
